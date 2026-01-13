@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .factura {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .empresa h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .empresa p {
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        .factura-info {
+            text-align: right;
+        }
+
+        .factura-info h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        /* CLIENTE */
+        .cliente {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cliente div {
+            width: 45%;
+        }
+
+        .cliente h3 {
+            margin-bottom: 5px;
+        }
+
+        .cliente p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+
+        /* TABLA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table thead {
+            background: #333;
+            color: #fff;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        table th {
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        /* TOTALES */
+        .totales {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .totales table {
+            width: 300px;
+        }
+
+        .totales td {
+            padding: 8px;
+        }
+
+        .totales tr:last-child td {
+            font-weight: bold;
+            border-top: 2px solid #333;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* IMPRESIÓN */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .factura {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="factura">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="empresa">
+            <h1>Mi Empresa S.A.</h1>
+            <p>RUC: 1234567890</p>
+            <p>Dirección: Calle Principal #123</p>
+            <p>Tel: 099 999 9999</p>
+        </div>
+
+        <div class="factura-info">
+            <h2>FACTURA</h2>
+            <p><strong>N°:</strong> 0001</p>
+            <p><strong>Fecha:</strong> 01/01/2026</p>
+        </div>
+    </div>
+
+    <!-- CLIENTE -->
+    <div class="cliente">
+        <div>
+            <h3>Facturar a:</h3>
+            <p><strong>Cliente:</strong> Juan Pérez</p>
+            <p><strong>Documento:</strong> 0987654321</p>
+            <p><strong>Dirección:</strong> Av. Siempre Viva 742</p>
+        </div>
+
+        <div>
+            <h3>Detalles:</h3>
+            <p><strong>Método de pago:</strong> Efectivo</p>
+            <p><strong>Vendedor:</strong> María López</p>
+        </div>
+    </div>
+
+    <!-- TABLA DE PRODUCTOS -->
+    <table>
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th class="text-right">Cantidad</th>
+                <th class="text-right">Precio</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Producto A</td>
+                <td class="text-right">2</td>
+                <td class="text-right">$10.00</td>
+                <td class="text-right">$20.00</td>
+            </tr>
+            <tr>
+                <td>Producto B</td>
+                <td class="text-right">1</td>
+                <td class="text-right">$15.00</td>
+                <td class="text-right">$15.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TOTALES -->
+    <div class="totales">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td class="text-right">$35.00</td>
+            </tr>
+            <tr>
+                <td>IVA (12%)</td>
+                <td class="text-right">$4.20</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td class="text-right">$39.20</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p><strong>Observaciones:</strong></p>
+        <p>Gracias por su compra.</p>
+        <p>Esta factura es válida sin firma ni sello.</p>
+    </div>
+
+</div>
+
+</body>
+</html>
