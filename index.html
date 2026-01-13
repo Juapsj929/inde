@@ -1,235 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Factura</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Comprobante de Pago de Factura</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eaeaea;
+        padding: 20px;
+    }
+
+    .recibo {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border: 1px solid #ccc;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid #000;
+        padding-bottom: 15px;
+    }
+
+    .header h1 {
+        margin: 0;
+    }
+
+    .header small {
+        font-size: 13px;
+    }
+
+    .datos {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .datos div {
+        width: 48%;
+    }
+
+    .datos h3 {
+        margin-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 3px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+    }
+
+    th {
+        background: #000;
+        color: #fff;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .totales {
+        margin-top: 20px;
+        width: 300px;
+        margin-left: auto;
+        font-size: 16px;
+    }
+
+    .total {
+        font-weight: bold;
+        border-top: 2px solid #000;
+    }
+
+    .firma {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+
+    .firma div {
+        width: 40%;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 14px;
+    }
+
+    button {
+        margin-top: 25px;
+        padding: 10px 20px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    @media print {
+        button {
+            display: none;
+        }
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 20px;
+            background: none;
+            padding: 0;
         }
-
-        .factura {
-            max-width: 900px;
-            margin: auto;
-            background: #ffffff;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .recibo {
+            border: none;
         }
-
-        /* HEADER */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
-        }
-
-        .empresa h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        .empresa p {
-            margin: 4px 0;
-            font-size: 14px;
-        }
-
-        .factura-info {
-            text-align: right;
-        }
-
-        .factura-info h2 {
-            margin: 0;
-            color: #333;
-        }
-
-        /* CLIENTE */
-        .cliente {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .cliente div {
-            width: 45%;
-        }
-
-        .cliente h3 {
-            margin-bottom: 5px;
-        }
-
-        .cliente p {
-            margin: 3px 0;
-            font-size: 14px;
-        }
-
-        /* TABLA */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-        }
-
-        table thead {
-            background: #333;
-            color: #fff;
-        }
-
-        table th, table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            font-size: 14px;
-        }
-
-        table th {
-            text-transform: uppercase;
-            font-size: 13px;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        /* TOTALES */
-        .totales {
-            margin-top: 30px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .totales table {
-            width: 300px;
-        }
-
-        .totales td {
-            padding: 8px;
-        }
-
-        .totales tr:last-child td {
-            font-weight: bold;
-            border-top: 2px solid #333;
-        }
-
-        /* FOOTER */
-        .footer {
-            margin-top: 40px;
-            font-size: 13px;
-            color: #555;
-        }
-
-        .footer p {
-            margin: 5px 0;
-        }
-
-        /* IMPRESIÓN */
-        @media print {
-            body {
-                background: none;
-                padding: 0;
-            }
-
-            .factura {
-                box-shadow: none;
-                margin: 0;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
+
 <body>
 
-<div class="factura">
+<div class="recibo">
 
-    <!-- HEADER -->
+    <!-- ENCABEZADO -->
     <div class="header">
-        <div class="empresa">
-            <h1>Mi Empresa S.A.</h1>
-            <p>RUC: 1234567890</p>
-            <p>Dirección: Calle Principal #123</p>
-            <p>Tel: 099 999 9999</p>
+        <div>
+            <h1>RECIBO DE PAGO</h1>
+            <small>Pago de factura</small>
         </div>
-
-        <div class="factura-info">
-            <h2>FACTURA</h2>
-            <p><strong>N°:</strong> 0001</p>
-            <p><strong>Fecha:</strong> 01/01/2026</p>
+        <div class="right">
+            <p><strong>N° Recibo:</strong> 000123</p>
+            <p><strong>Fecha:</strong> <span id="fecha"></span></p>
         </div>
     </div>
 
-    <!-- CLIENTE -->
-    <div class="cliente">
+    <!-- DATOS -->
+    <div class="datos">
         <div>
-            <h3>Facturar a:</h3>
-            <p><strong>Cliente:</strong> Juan Pérez</p>
+            <h3>Datos del Cliente</h3>
+            <p><strong>Nombre:</strong> Juan Pérez</p>
             <p><strong>Documento:</strong> 0987654321</p>
-            <p><strong>Dirección:</strong> Av. Siempre Viva 742</p>
+            <p><strong>Dirección:</strong> Av. Principal 456</p>
         </div>
 
         <div>
-            <h3>Detalles:</h3>
-            <p><strong>Método de pago:</strong> Efectivo</p>
-            <p><strong>Vendedor:</strong> María López</p>
+            <h3>Datos de la Factura</h3>
+            <p><strong>N° Factura:</strong> FAC-00145</p>
+            <p><strong>Fecha Factura:</strong> 10/01/2026</p>
+            <p><strong>Estado:</strong> PAGADA</p>
         </div>
     </div>
 
-    <!-- TABLA DE PRODUCTOS -->
+    <!-- DETALLE -->
     <table>
         <thead>
             <tr>
-                <th>Descripción</th>
-                <th class="text-right">Cantidad</th>
-                <th class="text-right">Precio</th>
-                <th class="text-right">Total</th>
+                <th>Concepto</th>
+                <th class="right">Monto</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Producto A</td>
-                <td class="text-right">2</td>
-                <td class="text-right">$10.00</td>
-                <td class="text-right">$20.00</td>
-            </tr>
-            <tr>
-                <td>Producto B</td>
-                <td class="text-right">1</td>
-                <td class="text-right">$15.00</td>
-                <td class="text-right">$15.00</td>
+                <td>Pago de factura FAC-00145</td>
+                <td class="right">$120.00</td>
             </tr>
         </tbody>
     </table>
 
     <!-- TOTALES -->
-    <div class="totales">
-        <table>
-            <tr>
-                <td>Subtotal</td>
-                <td class="text-right">$35.00</td>
-            </tr>
-            <tr>
-                <td>IVA (12%)</td>
-                <td class="text-right">$4.20</td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td class="text-right">$39.20</td>
-            </tr>
-        </table>
+    <table class="totales">
+        <tr>
+            <td>Total Pagado</td>
+            <td class="right">$120.00</td>
+        </tr>
+        <tr class="total">
+            <td>Saldo</td>
+            <td class="right">$0.00</td>
+        </tr>
+    </table>
+
+    <!-- METODO DE PAGO -->
+    <div style="margin-top: 20px;">
+        <p><strong>Método de pago:</strong> Transferencia bancaria</p>
+        <p><strong>Referencia:</strong> TRX-987654</p>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <p><strong>Observaciones:</strong></p>
-        <p>Gracias por su compra.</p>
-        <p>Esta factura es válida sin firma ni sello.</p>
+    <!-- FIRMAS -->
+    <div class="firma">
+        <div>Firma del Cliente</div>
+        <div>Firma Autorizada</div>
     </div>
+
+    <button onclick="window.print()">🖨 Imprimir recibo</button>
 
 </div>
+
+<script>
+    document.getElementById("fecha").innerText = new Date().toLocaleDateString();
+</script>
 
 </body>
 </html>
