@@ -2,204 +2,158 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Comprobante de Pago de Factura</title>
+<title>Pago de Facturas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #eaeaea;
-        padding: 20px;
-    }
-
-    .recibo {
-        max-width: 800px;
-        margin: auto;
-        background: #fff;
-        padding: 30px;
-        border: 1px solid #ccc;
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 2px solid #000;
-        padding-bottom: 15px;
-    }
-
-    .header h1 {
+        background: linear-gradient(120deg, #2c3e50, #3498db);
+        min-height: 100vh;
         margin: 0;
-    }
-
-    .header small {
-        font-size: 13px;
-    }
-
-    .datos {
         display: flex;
-        justify-content: space-between;
-        margin-top: 25px;
+        align-items: center;
+        justify-content: center;
     }
 
-    .datos div {
-        width: 48%;
-    }
-
-    .datos h3 {
-        margin-bottom: 5px;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 3px;
-    }
-
-    table {
+    .contenedor {
+        background: #fff;
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 25px;
+        max-width: 500px;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.2);
     }
 
-    th {
-        background: #000;
-        color: #fff;
-        padding: 10px;
-        text-align: left;
-    }
-
-    td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .right {
-        text-align: right;
-    }
-
-    .totales {
-        margin-top: 20px;
-        width: 300px;
-        margin-left: auto;
-        font-size: 16px;
-    }
-
-    .total {
-        font-weight: bold;
-        border-top: 2px solid #000;
-    }
-
-    .firma {
-        margin-top: 50px;
-        display: flex;
-        justify-content: space-between;
+    h1 {
         text-align: center;
+        margin-bottom: 10px;
     }
 
-    .firma div {
-        width: 40%;
-        border-top: 1px solid #000;
-        padding-top: 5px;
+    p {
+        text-align: center;
+        color: #555;
         font-size: 14px;
     }
 
-    button {
-        margin-top: 25px;
-        padding: 10px 20px;
-        font-size: 15px;
-        cursor: pointer;
+    label {
+        display: block;
+        margin-top: 20px;
+        font-weight: bold;
     }
 
-    @media print {
-        button {
-            display: none;
-        }
-        body {
-            background: none;
-            padding: 0;
-        }
-        .recibo {
-            border: none;
-        }
+    input, select, button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        font-size: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background: #3498db;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        background: #2980b9;
+    }
+
+    .factura {
+        background: #f7f7f7;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        display: none;
+    }
+
+    .factura div {
+        display: flex;
+        justify-content: space-between;
+        margin: 6px 0;
+    }
+
+    .total {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .pagado {
+        text-align: center;
+        color: green;
+        font-weight: bold;
+        margin-top: 15px;
+        display: none;
     }
 </style>
 </head>
 
 <body>
 
-<div class="recibo">
+<div class="contenedor">
+    <h1>Pago de Facturas</h1>
+    <p>Ingrese el número de factura para continuar</p>
 
-    <!-- ENCABEZADO -->
-    <div class="header">
-        <div>
-            <h1>RECIBO DE PAGO</h1>
-            <small>Pago de factura</small>
-        </div>
-        <div class="right">
-            <p><strong>N° Recibo:</strong> 000123</p>
-            <p><strong>Fecha:</strong> <span id="fecha"></span></p>
-        </div>
+    <!-- BUSCAR FACTURA -->
+    <label>Número de Factura</label>
+    <input type="text" id="numeroFactura" placeholder="Ej: FAC-12345">
+
+    <button onclick="buscarFactura()">Buscar Factura</button>
+
+    <!-- DETALLE FACTURA -->
+    <div class="factura" id="detalleFactura">
+        <h3>Detalle de la Factura</h3>
+        <div><span>Cliente:</span><span id="cliente"></span></div>
+        <div><span>Servicio:</span><span id="servicio"></span></div>
+        <div><span>Fecha:</span><span id="fecha"></span></div>
+        <div><span>Estado:</span><span id="estado"></span></div>
+        <div class="total"><span>Total a pagar:</span><span id="total"></span></div>
+
+        <!-- METODO DE PAGO -->
+        <label>Método de Pago</label>
+        <select id="metodo">
+            <option>Tarjeta de Crédito</option>
+            <option>Tarjeta de Débito</option>
+            <option>Transferencia</option>
+            <option>Efectivo</option>
+        </select>
+
+        <button onclick="pagarFactura()">Pagar Ahora</button>
     </div>
 
-    <!-- DATOS -->
-    <div class="datos">
-        <div>
-            <h3>Datos del Cliente</h3>
-            <p><strong>Nombre:</strong> Juan Pérez</p>
-            <p><strong>Documento:</strong> 0987654321</p>
-            <p><strong>Dirección:</strong> Av. Principal 456</p>
-        </div>
-
-        <div>
-            <h3>Datos de la Factura</h3>
-            <p><strong>N° Factura:</strong> FAC-00145</p>
-            <p><strong>Fecha Factura:</strong> 10/01/2026</p>
-            <p><strong>Estado:</strong> PAGADA</p>
-        </div>
+    <div class="pagado" id="mensajePago">
+        ✅ Factura pagada correctamente
     </div>
-
-    <!-- DETALLE -->
-    <table>
-        <thead>
-            <tr>
-                <th>Concepto</th>
-                <th class="right">Monto</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Pago de factura FAC-00145</td>
-                <td class="right">$120.00</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- TOTALES -->
-    <table class="totales">
-        <tr>
-            <td>Total Pagado</td>
-            <td class="right">$120.00</td>
-        </tr>
-        <tr class="total">
-            <td>Saldo</td>
-            <td class="right">$0.00</td>
-        </tr>
-    </table>
-
-    <!-- METODO DE PAGO -->
-    <div style="margin-top: 20px;">
-        <p><strong>Método de pago:</strong> Transferencia bancaria</p>
-        <p><strong>Referencia:</strong> TRX-987654</p>
-    </div>
-
-    <!-- FIRMAS -->
-    <div class="firma">
-        <div>Firma del Cliente</div>
-        <div>Firma Autorizada</div>
-    </div>
-
-    <button onclick="window.print()">🖨 Imprimir recibo</button>
-
 </div>
 
 <script>
-    document.getElementById("fecha").innerText = new Date().toLocaleDateString();
+    function buscarFactura() {
+        let numero = document.getElementById("numeroFactura").value;
+        if (!numero) {
+            alert("Ingrese un número de factura");
+            return;
+        }
+
+        // Simulación de datos
+        document.getElementById("cliente").innerText = "Carlos Gómez";
+        document.getElementById("servicio").innerText = "Servicio de Internet";
+        document.getElementById("fecha").innerText = "05/01/2026";
+        document.getElementById("estado").innerText = "PENDIENTE";
+        document.getElementById("total").innerText = "$45.00";
+
+        document.getElementById("detalleFactura").style.display = "block";
+        document.getElementById("mensajePago").style.display = "none";
+    }
+
+    function pagarFactura() {
+        document.getElementById("estado").innerText = "PAGADA";
+        document.getElementById("mensajePago").style.display = "block";
+    }
 </script>
 
 </body>
