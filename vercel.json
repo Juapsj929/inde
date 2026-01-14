@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://epmpse.st",
+      "permanent": true
+    }
+  ]
+}
